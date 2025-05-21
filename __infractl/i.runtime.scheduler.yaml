@@ -1,0 +1,26 @@
+spec:
+  storage:
+    io_bandwidth: 3M
+    quota: 5G
+    storage_class: hdd
+  compute:
+    memory: 512M
+    net: 1M
+    net_limit: 1M
+    vcpu: "200"
+
+  disk_request_id: main-disk
+  layer_storage_policy: KEEP
+  box_id: box
+
+  antiaffinity:
+    rack: 1
+
+  workloads:
+    workload:
+      command:
+        # https://docs.yandex-team.ru/nanny/how-to/structured-instancectl-config#command-vs-shell
+        cmd: bash -c "rqscheduler --host $REDIS_HOST --password $REDIS_PASSWORD --port $REDIS_PORT --db $REDIS_DB --interval 10"
+
+      readiness:
+        alive_check: ENABLED

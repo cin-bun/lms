@@ -1,0 +1,29 @@
+spec:
+  storage:
+    io_bandwidth: 4M
+    quota: 63G
+    storage_class: hdd
+  compute:
+    memory: 8140M
+    net: 4M
+    net_limit: 4M
+    vcpu: "1900"
+
+  disk_request_id: main-disk
+  layer_storage_policy: KEEP
+  box_id: box
+
+  antiaffinity:
+    rack: 1
+        
+  provides:
+    main:
+      endpoint_set:
+        port: 8001
+
+  workloads:
+    workload:
+      command: {}
+
+      readiness:
+        alive_check: ENABLED

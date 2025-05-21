@@ -6,12 +6,13 @@ PORT := 8000
 SETTINGS_ENV := local
 DJANGO_SETTINGS_MODULE = $(PROJECT).settings.$(SETTINGS_ENV)
 DJANGO_POSTFIX := --settings=$(DJANGO_SETTINGS_MODULE)
+UNAME_S := $(shell uname -s)
 
 ifeq ($(filter $(PROJECT),$(PROJECTS)),)
     $(error A project with name '$(PROJECT)' does not exist. Available projects: $(PROJECTS))
 endif
 
-.PHONY: run club migrate msg msg-compile static dumpdata loaddata clean cmd refresh sync deploy check_defined tests
+.PHONY: run club migrate msg msg-compile static dumpdata loaddata clean cmd refresh sync deploy check_defined tests scheduler worker
 
 run:
 	python -W once manage.py runserver --settings=$(PROJECT).settings.local $(PORT)
@@ -20,7 +21,7 @@ club:
 	python manage.py runserver --settings=compsciclub_ru.settings.local 8002
 
 shad:
-	sudo python manage.py runserver_plus 127.0.0.1:8080 --settings=lk_yandexdataschool_ru.settings.local
+	python manage.py runserver_plus 127.0.0.1:8080 --settings=lk_yandexdataschool_ru.settings.local
 
 tests:
 	pytest --create-db --ds=compscicenter_ru.settings.test
@@ -81,6 +82,20 @@ deploy:
 	$(call check_defined, app_user)
 	git push
 	cd ansible && make deploy SITE_USER=$(app_user)
+
+scheduler:
+ifeq ($(UNAME_S),Darwin)
+	OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python manage.py cron_tasks $(DJANGO_POSTFIX)
+else
+	python manage.py cron_tasks $(DJANGO_POSTFIX)
+endif
+
+worker:
+ifeq ($(UNAME_S),Darwin)
+	OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python manage.py rqworker high default $(DJANGO_POSTFIX)
+else
+	python manage.py rqworker high default $(DJANGO_POSTFIX)
+endif
 
 # Check that given variables are set and all have non-empty values,
 # die with an error otherwise.

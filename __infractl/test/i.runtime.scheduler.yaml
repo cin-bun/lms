@@ -1,0 +1,15 @@
+from: ../i.runtime.scheduler.yaml
+mixins:
+  - education/ysda/lms/__infractl/i/i.runtime.mixin-ssh.yaml
+  - education/ysda/lms/__infractl/i/i.runtime.mixin-monitoring.yaml
+  - education/ysda/lms/__infractl/i/i.runtime.mixin-ldap.yaml
+  - education/ysda/lms/__infractl/test/i/i.runtime.mixin-secrets.yaml
+spec:
+  image: ${package:education/ysda/ya_package.json}
+  
+  replicas:
+    klg: 1
+    sas: 1
+    vla: 1
+
+  network_id: _EDU_RUNTIME_YSDA_DEV_NETS_

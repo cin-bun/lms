@@ -1,11 +1,14 @@
+import re
+
 from django_ses.views import SESEventWebhookView
 
 from django.apps import apps
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.static import static
+from django.views.static import serve
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.views.generic import TemplateView
 
 from core.views import MarkdownHowToHelpView, MarkdownRenderView
@@ -17,6 +20,10 @@ from users.views import (
 
 admin.autodiscover()
 
+def static2(prefix, view=serve, **kwargs):
+    return [
+        re_path(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')), view, kwargs=kwargs),
+    ]
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -52,7 +59,13 @@ urlpatterns = [
     path('', include('admission.urls')),
     path('', include('universities.urls')),
     path('ses/event-webhook/', SESEventWebhookView.as_view(), name='aws_ses_events_webhook'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # instead of static, because we delete nginx
+] + static2(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# For local only, without S3
+if not settings.USE_CLOUD_STORAGE:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Placing this urls under `admin` namespace needs a lot of customization
 if apps.is_installed('django_rq'):
