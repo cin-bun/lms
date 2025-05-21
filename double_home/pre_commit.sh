@@ -1,10 +1,6 @@
 #!/bin/sh
 
-# Проверяем наличие файла блокировки
-if [ -f ".git/index.lock" ]; then
-  echo "File '.git/index.lock' exists. Please remove it and try again."
-  exit 1
-fi
+
 
 # Путь к папке с GitHub репозиторием
 GITHUB_REPO_PATH=/Users/cinnabun/Projects/lms
@@ -28,6 +24,13 @@ cd "$GITHUB_REPO_PATH" || { echo "Failed to change directory to $GITHUB_REPO_PAT
 # Проверяем, существует ли ветка с таким названием в GitHub репозитории
 if ! git rev-parse --verify "$current_branch" > /dev/null 2>&1; then
   echo "Branch $current_branch does not exist in GitHub repository."
+  exit 1
+fi
+
+# Проверяем наличие файла блокировки
+if [ -f ".git/index.lock" ]; then
+  echo "File '.git/index.lock' exists. Please remove it and try again."
+  rm /Users/cinnabun/Projects/lms/.git/index.lock
   exit 1
 fi
 
