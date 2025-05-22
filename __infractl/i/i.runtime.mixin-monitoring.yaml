@@ -1,0 +1,7 @@
+spec:
+  monitoring:
+    labels:
+      itype: ysda
+
+  system_metrics:
+    type: MONIUM

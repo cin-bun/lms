@@ -1,7 +1,10 @@
 from django_rq import job
 
 from django.contrib.contenttypes.models import ContentType
+from django.core.management import call_command
+from logging import getLogger
 
+logger = getLogger(__name__)
 
 @job('default')
 def compute_model_fields(content_type_id, object_id, compute_fields):
@@ -22,3 +25,33 @@ def compute_model_fields(content_type_id, object_id, compute_fields):
 
         obj = queryset.get(id=object_id)
         obj.compute_fields(*compute_fields)
+
+
+@job('default')
+def clear_sessions():
+    call_command('clearsessions')
+
+
+@job('default')
+def course_notifications():
+    call_command('notify')
+
+
+@job('default')
+def clear_notifications():
+    call_command('notification_cleanup')
+
+
+@job('default')
+def send_queued_mail():
+    call_command('send_queued_mail')
+
+
+@job('default')
+def project_notifications():
+    call_command('projects_notifications')
+
+
+@job('default')
+def send_project_notifications():
+    call_command('send_notifications')

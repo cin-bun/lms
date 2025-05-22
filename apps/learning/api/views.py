@@ -28,9 +28,10 @@ from learning.api.serializers import (
     UserSerializer
 )
 from learning.models import (
-    CourseNewsNotification, Enrollment, PersonalAssignmentActivity, StudentAssignment
+    CourseNewsNotification, Enrollment, StudentAssignment
 )
 from learning.permissions import EditStudentAssignment, ViewEnrollments
+from users.models import User
 
 
 class CourseNewsUnreadNotificationsView(ListAPIView):
@@ -112,6 +113,20 @@ class CourseStudentsList(RolePermissionRequiredMixin, APIBaseView):
         data = self.OutputSerializer(queryset, many=True).data
         return Response(data)
 
+class StudentWithProfileSerializer(UserSerializer):
+    year_of_curriculum = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'patronymic', 'username', 'year_of_curriculum')
+
+    def get_year_of_curriculum(self, obj):
+        profile = getattr(obj, 'student_profiles', None)
+        if profile and hasattr(profile, 'all'):
+            profile = profile.all().first()
+        if profile:
+            return profile.year_of_curriculum
+        return None
 
 class PersonalAssignmentList(RolePermissionRequiredMixin, APIBaseView):
     authentication_classes = [SessionAuthentication, TokenAuthentication]
@@ -125,7 +140,7 @@ class PersonalAssignmentList(RolePermissionRequiredMixin, APIBaseView):
 
     class OutputSerializer(serializers.ModelSerializer):
         score = ScoreField(coerce_to_string=True)
-        student = UserSerializer(fields=('id', 'first_name', 'last_name', 'patronymic', 'username'))
+        student = StudentWithProfileSerializer()
         assignee = inline_serializer(fields={
             "id": serializers.IntegerField(),
             "teacher": UserSerializer(fields=('id', 'first_name', 'last_name', 'patronymic'))

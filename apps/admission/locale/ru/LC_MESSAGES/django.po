@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-28 13:46+0000\n"
+"POT-Creation-Date: 2025-05-21 16:48+0300\n"
 "PO-Revision-Date: 2025-04-15 18:00+0000\n"
 "Last-Translator: Дмитрий Чернушевич <dmi4er4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgstr "Дата"
 msgid "Interview"
 msgstr "Интервью"
 
-#: apps/admission/admin.py:506 apps/admission/constants.py:126
+#: apps/admission/admin.py:506 apps/admission/constants.py:127
 msgid "Accepted"
 msgstr "Принято"
 
@@ -200,117 +200,117 @@ msgstr "Поступил в магистратуру (предотбор)"
 msgid "Refused to enroll the master's program (pre-selection)"
 msgstr "Отказ при зачислении (предотбор)"
 
-#: apps/admission/constants.py:88
+#: apps/admission/constants.py:89
 msgid "Testing"
 msgstr "Тестирование"
 
-#: apps/admission/constants.py:89 apps/admission/filters.py:147
+#: apps/admission/constants.py:90 apps/admission/filters.py:147
 #: apps/admission/models.py:1209
 msgid "Exam"
 msgstr "Экзамен"
 
-#: apps/admission/constants.py:90 apps/admission/filters.py:148
+#: apps/admission/constants.py:91 apps/admission/filters.py:148
 msgid "Olympiad"
 msgstr "Олимпиада"
 
-#: apps/admission/constants.py:94
+#: apps/admission/constants.py:95
 msgid "Not registered in the contest"
 msgstr "Не зарегистрирован в контесте"
 
-#: apps/admission/constants.py:96
+#: apps/admission/constants.py:97
 msgid "Syncing with a contest"
 msgstr "Синхронизация с контестом"
 
-#: apps/admission/constants.py:97
+#: apps/admission/constants.py:98
 msgid "Manual score input"
 msgstr "Ручной ввод баллов"
 
-#: apps/admission/constants.py:101 apps/admission/constants.py:105
+#: apps/admission/constants.py:102 apps/admission/constants.py:106
 msgid "Offline"
 msgstr "Очно"
 
-#: apps/admission/constants.py:102 apps/admission/constants.py:106
+#: apps/admission/constants.py:103 apps/admission/constants.py:107
 msgid "Online"
 msgstr "Онлайн"
 
-#: apps/admission/constants.py:107
+#: apps/admission/constants.py:108
 msgid "Any"
 msgstr "Любой"
 
-#: apps/admission/constants.py:111
+#: apps/admission/constants.py:112
 msgctxt "section"
 msgid "Common Section"
 msgstr "Общая секция"
 
-#: apps/admission/constants.py:112
+#: apps/admission/constants.py:113
 msgctxt "section"
 msgid "Math"
 msgstr "Математика"
 
-#: apps/admission/constants.py:113
+#: apps/admission/constants.py:114
 msgctxt "section"
 msgid "Code"
 msgstr "Код"
 
-#: apps/admission/constants.py:114
+#: apps/admission/constants.py:115
 msgctxt "section"
 msgid "Math and code"
 msgstr "Математика+код"
 
-#: apps/admission/constants.py:115
+#: apps/admission/constants.py:116
 msgctxt "section"
 msgid "Motivation"
 msgstr "Мотивация"
 
-#: apps/admission/constants.py:120
+#: apps/admission/constants.py:121
 msgid "No Response"
 msgstr "Нет ответа"
 
-#: apps/admission/constants.py:121
+#: apps/admission/constants.py:122
 msgid "Declined"
 msgstr "Отклонено"
 
-#: apps/admission/constants.py:125
+#: apps/admission/constants.py:126
 msgid "Expired"
 msgstr "Истекло"
 
-#: apps/admission/constants.py:156
+#: apps/admission/constants.py:157
 msgid "bachelor"
 msgstr "Бакалавр"
 
-#: apps/admission/constants.py:157
+#: apps/admission/constants.py:158
 msgid "speciality"
 msgstr "Специалист"
 
-#: apps/admission/constants.py:158
+#: apps/admission/constants.py:159
 msgid "magistracy"
 msgstr "Магистр"
 
-#: apps/admission/constants.py:159
+#: apps/admission/constants.py:160
 msgid "postgraduate"
 msgstr "Аспирант"
 
-#: apps/admission/constants.py:160
+#: apps/admission/constants.py:161
 msgid "secondary professional"
 msgstr "Диплом СПО"
 
-#: apps/admission/constants.py:163
+#: apps/admission/constants.py:164
 msgid "yes"
 msgstr "Да"
 
-#: apps/admission/constants.py:164
+#: apps/admission/constants.py:165
 msgid "in process of getting degree"
 msgstr "В процессе получения диплома"
 
-#: apps/admission/constants.py:165
+#: apps/admission/constants.py:166
 msgid "no"
 msgstr "Нет"
 
-#: apps/admission/constants.py:168
+#: apps/admission/constants.py:169
 msgid "Basiс track"
 msgstr "Базовый трек"
 
-#: apps/admission/constants.py:169
+#: apps/admission/constants.py:170
 msgid "Advanced track"
 msgstr "Продвинутый трек"
 

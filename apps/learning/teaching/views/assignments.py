@@ -87,10 +87,26 @@ def _check_queue_filters(course: Course, query_params):
     for g in student_groups_:
         label = g.get_name(branch_details=sites_total > 1)
         student_groups.append({"value": g.pk, "label": label, "selected": False})
+
+    from learning.models import Enrollment
+    enrollments = (Enrollment.active
+                  .filter(course=course)
+                  .select_related('student')
+                  .prefetch_related('student__student_profiles'))
+
+    program_years = set()
+    for enrollment in enrollments:
+        for profile in enrollment.student.student_profiles.all():
+            if profile.year_of_curriculum:
+                program_years.add(str(profile.year_of_curriculum))
+
+    program_year = [{"value": year, "label": year, "selected": False} for year in sorted(program_years)]
+
     return {
         "assignments": assignments,
         "courseTeachers": course_teachers,
-        "courseGroups": student_groups
+        "courseGroups": student_groups,
+        "programYear": program_year
     }
 
 
@@ -145,6 +161,7 @@ class AssignmentCheckQueueView(PermissionRequiredMixin, TemplateView):
                     "courseOptions": course_options,
                     "courseTeachers": filters["courseTeachers"],
                     "courseGroups": filters["courseGroups"],
+                    "programYear": filters["programYear"],
                     "statusOptions": [{'value': v, 'label': str(l)} for v, l in AssignmentStatus.choices
                                       if v != AssignmentStatus.NEW]
                 },
@@ -203,7 +220,6 @@ class AssignmentDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = ViewAssignment.name
 
     def get_student_assignments(self):
-
         student_assignments = (
             StudentAssignment.objects
             .for_teachers()
@@ -319,6 +335,7 @@ class AssignmentStatusLogCSVView(PermissionRequiredMixin, generic.DetailView):
                                  comment_author.get_short_name(), comment_author.pk,
                                  action_text, created])
         return response
+
 
 class AssignmentStudentAnswersCSVView(PermissionRequiredMixin, generic.DetailView):
     model = Assignment

@@ -1,0 +1,9 @@
+contour: test
+environment: TESTING
+
+make:
+  mode: enabled
+runtime:
+  group: enabled
+  name: ysda-testing
+  stage_id: ysda-testing

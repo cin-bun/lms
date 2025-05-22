@@ -57,6 +57,19 @@ services:
     command: python manage.py rqworker high default
     depends_on:
       - uwsgi
+  cron:
+    # requires: django-rq-scheduler
+    container_name: lms-cron
+    image: lms-backend-django
+    restart: always
+    environment:
+      - DEBUG=0
+      - REDIS_HOST=lms-redis-cluster
+      - REDIS_PASSWORD=secret-password
+    command: python manage.py cron_tasks
+    depends_on:
+      - uwsgi
+      - redis
   nginx:
     container_name: lms-nginx
     build:

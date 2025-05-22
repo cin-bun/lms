@@ -1,0 +1,13 @@
+spec:
+  files:
+    /etc/ldap/certs/ca.crt: "${sec-01jnnzzpxh67vs906gvckagka0:ldap-cert}"
+
+  workloads:
+    workload:
+      env:
+        LDAP_TLS_TRUSTED_CA_CERT_FILE: "/etc/ldap/certs/ca.crt"
+
+        # LDAP_CLIENT_PASSWORD: ${sec-01jj6yq98at17j54h3mhz92t96:LDAP_CLIENT_PASSWORD}
+        # LDAP_CLIENT_URI: ${sec-01jj6yq98at17j54h3mhz92t96:LDAP_CLIENT_URI}
+        # LDAP_DB_SUFFIX: ${sec-01jj6yq98at17j54h3mhz92t96:LDAP_DB_SUFFIX}
+        # LDAP_SYNC_PASSWORD: ${sec-01jj6yq98at17j54h3mhz92t96:LDAP_SYNC_PASSWORD}

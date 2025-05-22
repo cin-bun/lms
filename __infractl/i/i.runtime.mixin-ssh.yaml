@@ -1,0 +1,8 @@
+spec:
+  # FIXME: узнать нужно ли и дропнуть если нет
+  override:
+    deploy_unit:
+      update:
+      - path: replica_set.replica_set_template.pod_template_spec.spec.allowed_ssh_key_set
+        value: PSKS_ROOT_SECURE_AND_NOBODY_INSECURE
+      

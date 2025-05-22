@@ -1,0 +1,9 @@
+contour: prod
+environment: PRODUCTION
+
+make:
+  mode: enabled
+runtime:
+  group: enabled
+  name: ysda-production
+  stage_id: ysda-production

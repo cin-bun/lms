@@ -1,0 +1,25 @@
+spec:
+  storage:
+    io_bandwidth: 3M
+    quota: 5G
+    storage_class: hdd
+  compute:
+    memory: 512M
+    net: 1M
+    net_limit: 1M
+    vcpu: "200"
+
+  disk_request_id: main-disk
+  layer_storage_policy: KEEP
+  box_id: box
+
+  antiaffinity:
+    rack: 1
+
+  workloads:
+    workload:
+      command: 
+        cmd: bash -c "python manage.py cron_tasks"
+
+      readiness:
+        alive_check: ENABLED
